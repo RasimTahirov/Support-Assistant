@@ -2,19 +2,23 @@ package sm.scriptmanager.app;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import sm.scriptmanager.storage.ScriptStorage;
+import sm.scriptmanager.ui.MainView;
+import sm.scriptmanager.ui.script.ScriptList;
+import sm.scriptmanager.ui.window.AddScriptWindow;
 
 public class App extends Application {
+    private final ScriptStorage storage = new ScriptStorage();
+
+    private final ScriptList scriptList = new ScriptList(storage);
+    private final AddScriptWindow addScriptWindow = new AddScriptWindow(storage);
+
     @Override
     public void start(Stage stage) {
-        VBox vBox = new VBox();
-        Text text = new Text("Hello ScriptManager");
+        MainView mainView = new MainView(scriptList, addScriptWindow, stage);
 
-        vBox.getChildren().add(text);
-
-        Scene scene = new Scene(vBox, 500, 500);
+        Scene scene = new Scene(mainView, 500, 500);
 
         stage.setScene(scene);
         stage.show();
