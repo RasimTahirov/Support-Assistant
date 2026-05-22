@@ -14,4 +14,8 @@ public class ScriptList extends VBox {
 
         getChildren().add(scriptList);
     }
+
+    public ListView<Script> getScriptList() {
+        return scriptList;
+    }
 }
