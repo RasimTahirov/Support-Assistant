@@ -1,6 +1,7 @@
 package sm.scriptmanager.ui;
 
 import javafx.scene.control.SplitPane;
+import sm.scriptmanager.service.ClipboardService;
 import sm.scriptmanager.storage.ScriptStorage;
 import sm.scriptmanager.ui.Pane.ScriptContent;
 import sm.scriptmanager.ui.Pane.ScriptSidebar;
@@ -14,8 +15,9 @@ public class MainView extends SplitPane {
     public MainView(ScriptStorage storage) {
         AddScriptWindow addScriptWindow = new AddScriptWindow(storage);
         ScriptList scriptList = new ScriptList(storage);
+        ClipboardService clipboardService = new ClipboardService();
 
-        this.content = new ScriptContent();
+        this.content = new ScriptContent(clipboardService);
         this.sidebar = new ScriptSidebar(scriptList, addScriptWindow);
 
         scriptList.getScriptList()
