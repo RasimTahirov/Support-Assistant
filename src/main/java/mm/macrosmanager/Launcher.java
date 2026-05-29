@@ -1,6 +1,6 @@
-package sm.scriptmanager;
+package mm.macrosmanager;
 
-import sm.scriptmanager.app.App;
+import mm.macrosmanager.app.App;
 
 public class Launcher {
     public static void main(String[] args) {

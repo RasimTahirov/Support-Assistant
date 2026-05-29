@@ -8,7 +8,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>sm</groupId>
-    <artifactId>ScriptManager</artifactId>
+    <artifactId>MacrosManager</artifactId>
     <version>0.1.0</version>
     <name>ScriptManager</name>
 
@@ -64,7 +64,7 @@
                 <version>0.0.8</version>
 
                 <configuration>
-                    <mainClass>sm.scriptmanager/app.App</mainClass>
+                    <mainClass>mm.macrosmanager/app.App</mainClass>
                 </configuration>
             </plugin>
         </plugins>

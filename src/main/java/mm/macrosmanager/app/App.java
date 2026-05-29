@@ -1,19 +1,19 @@
-package sm.scriptmanager.app;
+package mm.macrosmanager.app;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sm.scriptmanager.storage.ScriptStorage;
-import sm.scriptmanager.ui.MainView;
+import mm.macrosmanager.storage.MacrosStorage;
+import mm.macrosmanager.ui.MainView;
 
 public class App extends Application {
-    private final ScriptStorage storage = new ScriptStorage();
+    private final MacrosStorage storage = new MacrosStorage();
 
     @Override
     public void start(Stage stage) {
         MainView mainView = new MainView(storage);
 
-        Scene scene = new Scene(mainView, 700, 700);
+        Scene scene = new Scene(mainView, 1000, 700);
 
         stage.setScene(scene);
         stage.show();

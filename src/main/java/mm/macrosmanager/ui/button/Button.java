@@ -1,4 +1,4 @@
-package sm.scriptmanager.ui.Button;
+package mm.macrosmanager.ui.button;
 
 public class Button extends javafx.scene.control.Button {
     public Button(String text) {
