@@ -5,9 +5,17 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import mm.macrosmanager.model.Macros;
 import mm.macrosmanager.storage.MacrosStorage;
+import mm.macrosmanager.ui.button.Button;
+import mm.macrosmanager.ui.window.DeleteMacrosWindow;
 
 public class MacrosCellView extends ListCell<Macros> {
-    public MacrosCellView(MacrosStorage storage) {}
+    private final MacrosStorage storage;
+    private final DeleteMacrosWindow deleteMacrosWindow;
+
+    public MacrosCellView(MacrosStorage storage, DeleteMacrosWindow deleteMacrosWindow) {
+        this.storage = storage;
+        this.deleteMacrosWindow = deleteMacrosWindow;
+    }
 
     @Override
     protected void updateItem(Macros macros, boolean empty) {
@@ -19,8 +27,11 @@ public class MacrosCellView extends ListCell<Macros> {
         }
 
         Label macrosTitle = new Label(macros.getTitle());
+        Button deleteMacros = new Button("Удалить");
 
-        HBox hBox = new HBox(50, macrosTitle);
+        deleteMacros.setOnAction(e -> deleteMacrosWindow.open(storage, macros));
+
+        HBox hBox = new HBox(50, macrosTitle, deleteMacros);
         setGraphic(hBox);
     }
 }

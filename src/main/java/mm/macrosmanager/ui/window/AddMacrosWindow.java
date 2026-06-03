@@ -11,13 +11,7 @@ import mm.macrosmanager.storage.MacrosStorage;
 import mm.macrosmanager.ui.button.Button;
 
 public class AddMacrosWindow {
-    private final MacrosStorage storage;
-
-    public AddMacrosWindow(MacrosStorage storage) {
-        this.storage = storage;
-    }
-
-    public void open() {
+    public void open(MacrosStorage storage) {
         Stage stage = new Stage();
 
         VBox root = new VBox();

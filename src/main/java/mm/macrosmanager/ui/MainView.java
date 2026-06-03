@@ -7,24 +7,28 @@ import mm.macrosmanager.ui.pane.MacrosContent;
 import mm.macrosmanager.ui.pane.MacrosSidebar;
 import mm.macrosmanager.ui.macros.MacrosList;
 import mm.macrosmanager.ui.window.AddMacrosWindow;
+import mm.macrosmanager.ui.window.DeleteMacrosWindow;
 
 public class MainView extends SplitPane {
     private final MacrosSidebar sidebar;
     private final MacrosContent content;
 
     public MainView(MacrosStorage storage) {
-        AddMacrosWindow addMacrosWindow = new AddMacrosWindow(storage);
-        MacrosList macrosList = new MacrosList(storage);
+        AddMacrosWindow addMacrosWindow = new AddMacrosWindow();
+        DeleteMacrosWindow deleteMacrosWindow = new DeleteMacrosWindow();
+        MacrosList macrosList = new MacrosList(storage, deleteMacrosWindow);
         ClipboardService clipboardService = new ClipboardService();
 
         this.content = new MacrosContent(clipboardService);
-        this.sidebar = new MacrosSidebar(macrosList, addMacrosWindow);
+        this.sidebar = new MacrosSidebar(macrosList, addMacrosWindow, storage);
 
         macrosList.getMacrosList()
                 .getSelectionModel()
                 .selectedItemProperty()
                 .addListener((obs, old, val) -> {
-                    content.showMacros(val.getTitle(), val.getMacros());
+                    if (val != null) {
+                        content.showMacros(val.getTitle(), val.getMacros());
+                    }
                 });
 
         setDividerPositions(0.3);

@@ -3,15 +3,16 @@ package mm.macrosmanager.ui.pane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import mm.macrosmanager.storage.MacrosStorage;
 import mm.macrosmanager.ui.button.Button;
 import mm.macrosmanager.ui.macros.MacrosList;
 import mm.macrosmanager.ui.window.AddMacrosWindow;
 
 public class MacrosSidebar extends VBox {
-    public MacrosSidebar(MacrosList macrosList, AddMacrosWindow addMacrosWindow) {
+    public MacrosSidebar(MacrosList macrosList, AddMacrosWindow addMacrosWindow, MacrosStorage storage) {
         Button addMacrosButton = new Button("Добавить новый макрос");
 
-        addMacrosButton.setOnAction(e -> addMacrosWindow.open());
+        addMacrosButton.setOnAction(e -> addMacrosWindow.open(storage));
 
         HBox buttonContainer = new HBox(addMacrosButton);
         VBox macrosListContainer = new VBox(macrosList);
