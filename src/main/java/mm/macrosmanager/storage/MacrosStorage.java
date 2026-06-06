@@ -6,12 +6,28 @@ import mm.macrosmanager.database.MacrosDatabase;
 import mm.macrosmanager.model.Macros;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class MacrosStorage {
     private final ObservableList<Macros> macrosList = FXCollections.observableArrayList();
 
     public void loadFromDatabase() {
         macrosList.setAll(MacrosDatabase.getAllMacros());
+    }
+
+    public void searchMacros(String title) {
+        if (title == null || title.isBlank()) {
+            loadFromDatabase();
+            return;
+        }
+
+        try {
+            List<Macros> searchResults = MacrosDatabase.searchMacros(title);
+
+            macrosList.setAll(searchResults);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void addMacros(Macros macros) {

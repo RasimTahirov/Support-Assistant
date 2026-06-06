@@ -18,6 +18,28 @@ public class MacrosDatabase {
         }
     }
 
+    public static List<Macros> searchMacros(String title) throws SQLException{
+        List<Macros> macrosList = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(SqlQuery.getURL());
+             PreparedStatement statement = connection.prepareStatement(SqlQuery.getSearchQuery())) {
+
+            statement.setString(1, "%" + title.toLowerCase() + "%");
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    macrosList.add(new Macros(
+                            resultSet.getInt(SqlQuery.getKeyId()),
+                            resultSet.getString(SqlQuery.getKeyTitle()),
+                            resultSet.getString(SqlQuery.getKeyMacros())
+                    ));
+                }
+            }
+        }
+
+        return macrosList;
+    }
+
     public static List<Macros> getAllMacros() {
         List<Macros> macrosList = new ArrayList<>();
 
@@ -47,7 +69,8 @@ public class MacrosDatabase {
                     Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setString(1, macros.getTitle());
-            statement.setString(2, macros.getMacros());
+            statement.setString(2, macros.getTitle_lower());
+            statement.setString(3, macros.getMacros());
             statement.executeUpdate();
 
             try (ResultSet generateKeys = statement.getGeneratedKeys()) {
