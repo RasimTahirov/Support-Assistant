@@ -8,13 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MacrosDatabase {
-    public static void init() {
+    public static void init() throws SQLException {
         try (Connection connection = DriverManager.getConnection(SqlQuery.getURL());
              Statement statement = connection.createStatement()) {
             statement.execute(SqlQuery.getCreateQuery());
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 
@@ -40,7 +37,7 @@ public class MacrosDatabase {
         return macrosList;
     }
 
-    public static List<Macros> getAllMacros() {
+    public static List<Macros> getAllMacros() throws SQLException {
         List<Macros> macrosList = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection(SqlQuery.getURL());
@@ -54,9 +51,6 @@ public class MacrosDatabase {
                         resultSet.getString(SqlQuery.getKeyMacros())
                 ));
             }
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
 
         return macrosList;
@@ -78,21 +72,17 @@ public class MacrosDatabase {
                     return generateKeys.getInt(1);
                 }
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
 
         throw new SQLException("Не удалось сгенерировать ID");
     }
 
-    public static void deleteMacros(int id) {
+    public static void deleteMacros(int id) throws SQLException {
         try (Connection connection = DriverManager.getConnection(SqlQuery.getURL());
             PreparedStatement statement = connection.prepareStatement(SqlQuery.getDeleteQuery())) {
 
             statement.setInt(1, id);
             statement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
         }
     }
 }

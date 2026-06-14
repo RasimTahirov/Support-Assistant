@@ -7,7 +7,6 @@ import mm.macrosmanager.ui.pane.MacrosContent;
 import mm.macrosmanager.ui.pane.MacrosSidebar;
 import mm.macrosmanager.ui.macros.MacrosList;
 import mm.macrosmanager.ui.window.AddMacrosWindow;
-import mm.macrosmanager.ui.window.DeleteMacrosWindow;
 
 public class MainView extends SplitPane {
     private final MacrosSidebar sidebar;
@@ -15,8 +14,7 @@ public class MainView extends SplitPane {
 
     public MainView(MacrosStorage storage) {
         AddMacrosWindow addMacrosWindow = new AddMacrosWindow();
-        DeleteMacrosWindow deleteMacrosWindow = new DeleteMacrosWindow();
-        MacrosList macrosList = new MacrosList(storage, deleteMacrosWindow);
+        MacrosList macrosList = new MacrosList(storage);
         ClipboardService clipboardService = new ClipboardService();
 
         this.content = new MacrosContent(clipboardService);

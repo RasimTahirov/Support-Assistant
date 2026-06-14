@@ -5,14 +5,13 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import mm.macrosmanager.model.Macros;
 import mm.macrosmanager.storage.MacrosStorage;
-import mm.macrosmanager.ui.window.DeleteMacrosWindow;
 
 public class MacrosList extends VBox {
     ListView<Macros> macrosList = new ListView<>();
 
-    public MacrosList(MacrosStorage storage, DeleteMacrosWindow deleteMacrosWindow) {
+    public MacrosList(MacrosStorage storage) {
         macrosList.setItems(storage.getMacros());
-        macrosList.setCellFactory(macros -> new MacrosCellView(storage, deleteMacrosWindow));
+        macrosList.setCellFactory(macros -> new MacrosCellView(storage));
 
         VBox.setVgrow(macrosList, Priority.ALWAYS);
         getChildren().add(macrosList);

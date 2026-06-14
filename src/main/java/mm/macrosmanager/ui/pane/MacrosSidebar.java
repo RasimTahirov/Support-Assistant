@@ -8,6 +8,9 @@ import mm.macrosmanager.storage.MacrosStorage;
 import mm.macrosmanager.ui.button.Button;
 import mm.macrosmanager.ui.macros.MacrosList;
 import mm.macrosmanager.ui.window.AddMacrosWindow;
+import mm.macrosmanager.ui.window.WarningWindow;
+
+import java.sql.SQLException;
 
 public class MacrosSidebar extends VBox {
     public MacrosSidebar(MacrosList macrosList, AddMacrosWindow addMacrosWindow, MacrosStorage storage) {
@@ -15,7 +18,12 @@ public class MacrosSidebar extends VBox {
 
         search.setPromptText("Поиск...");
         search.textProperty().addListener((obs, oldVal, newVal) -> {
-            storage.searchMacros(newVal.toLowerCase());
+            try {
+                storage.searchMacros(newVal.toLowerCase());
+            } catch (SQLException exception) {
+                System.out.println("SQL ошибка " + exception.getMessage());
+                WarningWindow.showWarning(exception.getMessage());
+            }
         });
 
         Button addMacrosButton = new Button("Добавить новый макрос");

@@ -4,11 +4,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import mm.macrosmanager.model.Macros;
 import mm.macrosmanager.storage.MacrosStorage;
 import mm.macrosmanager.ui.button.Button;
+
+import java.sql.SQLException;
 
 public class AddMacrosWindow {
     public void open(MacrosStorage storage) {
@@ -26,13 +28,16 @@ public class AddMacrosWindow {
 
         saveButton.setOnAction(e -> {
             if (title.getText().isBlank() || macros.getText().isBlank()) {
-                Text text = new Text("Добавьте название и скрипт");
-                root.getChildren().add(text);
-
+                WarningWindow.showWarning("Добавьте название и макрос");
                 return;
             }
 
-            storage.addMacros(new Macros(title.getText(), macros.getText()));
+            try {
+                storage.addMacros(new Macros(title.getText(), macros.getText()));
+            } catch (SQLException exception) {
+                System.out.println("SQL ошибка " + exception.getMessage());
+                WarningWindow.showWarning(exception.getMessage());
+            }
 
             stage.close();
         });
@@ -41,6 +46,7 @@ public class AddMacrosWindow {
 
         Scene scene = new Scene(root, 400, 400);
 
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.show();
     }
