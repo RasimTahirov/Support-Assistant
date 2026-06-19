@@ -1,12 +1,11 @@
 package mm.macrosmanager.service;
 
 public class PlatformService {
-    public static String os() {
+    public static String getDatabasePath() {
         String os = System.getProperty("os.name").toLowerCase();
 
         if (os.contains("win")) {
-            System.out.println(os);
-            System.out.println("Здесь пока пусто, так как у меня нет винды");
+            return DatabaseService.getDatabasePath("AppData/Roaming/Macros Manager");
         }
 
         if (os.contains("mac")) {

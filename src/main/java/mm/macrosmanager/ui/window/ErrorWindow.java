@@ -16,4 +16,15 @@ public class ErrorWindow {
         Platform.exit();
         System.exit(0);
     }
+
+    public static void showUnregisterError() {
+        Alert alert = new Alert(ERROR);
+
+        alert.setHeaderText("Не удалось завершить процесс");
+        alert.setContentText("""
+                Не удалось корректно завершить работу приложения. Закройте его вручную через Диспетчер задач.
+                """);
+
+        alert.showAndWait();
+    }
 }

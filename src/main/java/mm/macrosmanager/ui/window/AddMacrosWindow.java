@@ -6,14 +6,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import mm.macrosmanager.model.Macros;
-import mm.macrosmanager.storage.MacrosStorage;
+import mm.macrosmanager.exception.MacrosException;
+import mm.macrosmanager.model.MacrosModel;
 import mm.macrosmanager.ui.button.Button;
 
-import java.sql.SQLException;
-
 public class AddMacrosWindow {
-    public void open(MacrosStorage storage) {
+    public void open(MacrosModel model) {
         Stage stage = new Stage();
 
         VBox root = new VBox();
@@ -33,13 +31,12 @@ public class AddMacrosWindow {
             }
 
             try {
-                storage.addMacros(new Macros(title.getText(), macros.getText()));
-            } catch (SQLException exception) {
+                model.add(title.getText(), macros.getText());
+                stage.close();
+            } catch (MacrosException exception) {
                 System.out.println("SQL ошибка " + exception.getMessage());
                 WarningWindow.showWarning(exception.getMessage());
             }
-
-            stage.close();
         });
 
         root.getChildren().addAll(title, macros, saveButton);

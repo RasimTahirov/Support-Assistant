@@ -3,16 +3,16 @@ package mm.macrosmanager.ui.macros;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
-import mm.macrosmanager.model.Macros;
-import mm.macrosmanager.storage.MacrosStorage;
+import mm.macrosmanager.entity.Macros;
+import mm.macrosmanager.model.MacrosModel;
 import mm.macrosmanager.ui.button.Button;
 import mm.macrosmanager.ui.window.ConfirmationWindow;
 
 public class MacrosCellView extends ListCell<Macros> {
-    private final MacrosStorage storage;
+    private final MacrosModel model;
 
-    public MacrosCellView(MacrosStorage storage) {
-        this.storage = storage;
+    public MacrosCellView(MacrosModel model) {
+        this.model = model;
     }
 
     @Override
@@ -30,8 +30,8 @@ public class MacrosCellView extends ListCell<Macros> {
         deleteMacros.setOnAction(e -> ConfirmationWindow.showDeleteMacrosConfirmation(
                 "Удаление",
                 "Удалить макрос",
-                storage,
-                macros
+                macros,
+                model
         ));
 
         HBox hBox = new HBox(50, macrosTitle, deleteMacros);

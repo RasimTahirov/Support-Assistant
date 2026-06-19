@@ -2,7 +2,7 @@ package mm.macrosmanager.utils;
 
 import mm.macrosmanager.service.PlatformService;
 
-public class SqlQuery {
+public class SqlQueryUtils {
     private static String URL = "jdbc:sqlite:";
 
     private static final String SEARCH_QUERY = "SELECT * FROM %s WHERE %s LIKE ?";
@@ -26,7 +26,7 @@ public class SqlQuery {
     private static final String KEY_MACROS = "macros";
 
     public static String getURL() {
-        return URL + PlatformService.os();
+        return URL + PlatformService.getDatabasePath();
     }
 
     public static String getSearchQuery() {

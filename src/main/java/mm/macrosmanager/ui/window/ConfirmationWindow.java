@@ -2,10 +2,9 @@ package mm.macrosmanager.ui.window;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import mm.macrosmanager.model.Macros;
-import mm.macrosmanager.storage.MacrosStorage;
-
-import java.sql.SQLException;
+import mm.macrosmanager.entity.Macros;
+import mm.macrosmanager.exception.MacrosException;
+import mm.macrosmanager.model.MacrosModel;
 import java.util.Optional;
 
 import static javafx.scene.control.Alert.AlertType.CONFIRMATION;
@@ -14,8 +13,8 @@ public class ConfirmationWindow {
     public static void showDeleteMacrosConfirmation(
             String title,
             String message,
-            MacrosStorage storage,
-            Macros macros) {
+            Macros macros,
+            MacrosModel model) {
         Alert alert = new Alert(CONFIRMATION);
 
         alert.setTitle(title);
@@ -24,12 +23,11 @@ public class ConfirmationWindow {
         alert.setGraphic(null);
 
         Optional<ButtonType> result = alert.showAndWait();
-        System.out.println(result);
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
             try {
-                storage.deleteMacros(macros);
-            } catch (SQLException exception) {
+                model.delete(macros);
+            } catch (MacrosException exception) {
                 System.out.println("SQL ошибка " + exception.getMessage());
                 WarningWindow.showWarning("Не удалось удалить макрос");
             }

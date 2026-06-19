@@ -1,4 +1,4 @@
-package mm.macrosmanager.model;
+package mm.macrosmanager.entity;
 
 public class Macros {
     private final int id;

@@ -4,10 +4,10 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import javafx.stage.Stage;
 
-public class KeyboardRegister implements NativeKeyListener {
+public class KeyboardRegisterService implements NativeKeyListener {
     private final Stage stage;
 
-    public KeyboardRegister(Stage stage) {
+    public KeyboardRegisterService(Stage stage) {
         this.stage = stage;
     }
 
