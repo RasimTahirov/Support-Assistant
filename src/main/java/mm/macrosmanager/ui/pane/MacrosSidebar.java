@@ -20,7 +20,6 @@ public class MacrosSidebar extends VBox {
             try {
                 model.search(newVal.toLowerCase());
             } catch (MacrosException exception) {
-                System.out.println(exception + " Ошибка");
                 WarningWindow.showWarning("Не удалось выполнить поиск");
             }
         });

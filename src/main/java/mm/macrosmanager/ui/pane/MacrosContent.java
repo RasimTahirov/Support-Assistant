@@ -7,12 +7,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import mm.macrosmanager.service.ClipboardService;
 import mm.macrosmanager.ui.button.Button;
+import mm.macrosmanager.ui.macros.MacrosList;
 
 public class MacrosContent extends VBox {
     private final TextArea macros = new TextArea();
     private final Text title = new Text();
 
-    public MacrosContent(ClipboardService clipboard) {
+    public MacrosContent(MacrosList macrosList, ClipboardService clipboard) {
         Button copyButton = new Button("Скопировать");
 
         copyButton.setOnAction(e -> clipboard.copy(macros.getText()));
@@ -20,6 +21,16 @@ public class MacrosContent extends VBox {
         HBox titleContainer = new HBox(title);
         HBox macrosContainer = new HBox(macros);
         HBox buttonContainer = new HBox();
+
+        macrosList.getMacrosList()
+                .getSelectionModel()
+                .selectedItemProperty()
+                .addListener((obs, old, val) -> {
+                    if (val != null) {
+                        title.setText(val.getTitle());
+                        macros.setText(val.getMacros());
+                    }
+                });
 
         buttonContainer.getChildren().add(copyButton);
 
@@ -29,10 +40,5 @@ public class MacrosContent extends VBox {
         macros.setWrapText(true);
 
         getChildren().addAll(titleContainer, macrosContainer, buttonContainer);
-    }
-
-    public void showMacros(String stringTitle, String string) {
-        title.setText(stringTitle);
-        macros.setText(string);
     }
 }

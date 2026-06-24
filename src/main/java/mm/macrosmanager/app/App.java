@@ -8,12 +8,17 @@ import mm.macrosmanager.model.MacrosModel;
 import mm.macrosmanager.repository.MacrosRepository;
 import mm.macrosmanager.repository.SqlMacrosRepository;
 import mm.macrosmanager.service.MacrosService;
+import mm.macrosmanager.service.PlatformService;
 import mm.macrosmanager.service.ScreenRegisterService;
 import mm.macrosmanager.ui.MainView;
 import mm.macrosmanager.ui.window.ErrorWindow;
 import mm.macrosmanager.utils.WindowFocusUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class App extends Application {
+    private final Logger logger = LoggerFactory.getLogger(App.class);
+
     private final ScreenRegisterService screenRegister = new ScreenRegisterService();
     private final MacrosRepository repository = new SqlMacrosRepository();
     private final MacrosService service = new MacrosService(repository);
@@ -36,8 +41,10 @@ public class App extends Application {
             stage.toFront();
 
             WindowFocusUtils.requestForeground();
+
+            logger.info("Приложение запущено на ОС {}", PlatformService.getOsName());
         } catch (MacrosException exception) {
-            System.out.println("SQL ошибка " + exception.getMessage());
+            logger.error("Возникла ошибка. Приложение не запущено {}", exception.getMessage(), exception);
             ErrorWindow.showInitDatabaseError();
         }
     }
@@ -45,9 +52,12 @@ public class App extends Application {
     @Override
     public void stop() {
         screenRegister.unregister();
+
+        logger.info("Приложение успешно завершило работу");
     }
 
     public static void main(String[] args) {
+        PlatformService.saveLogPathProperty();
         launch(args);
     }
 }

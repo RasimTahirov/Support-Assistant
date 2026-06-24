@@ -3,18 +3,23 @@ package mm.macrosmanager.repository;
 import mm.macrosmanager.entity.Macros;
 import mm.macrosmanager.exception.MacrosException;
 import mm.macrosmanager.utils.SqlQueryUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SqlMacrosRepository implements MacrosRepository {
+    private static final Logger logger = LoggerFactory.getLogger(SqlMacrosRepository.class);
+
     @Override
     public void init() {
         try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getURL());
              Statement statement = connection.createStatement()) {
             statement.execute(SqlQueryUtils.getCreateQuery());
         } catch (SQLException exception) {
+            logger.error("База данных не инициализирована {}", exception.getMessage(), exception);
             throw new MacrosException("Не удалось инициализировать базу данных", exception);
         }
     }
@@ -35,6 +40,11 @@ public class SqlMacrosRepository implements MacrosRepository {
                 ));
             }
         } catch (SQLException exception) {
+            logger.error(
+                    "Ошибка БД: не удалось загрузить полный список макросов, {}",
+                    exception.getMessage(),
+                    exception
+            );
             throw new MacrosException("Не удалось загрузить макросы из базы данных", exception);
         }
 
@@ -60,6 +70,7 @@ public class SqlMacrosRepository implements MacrosRepository {
                 }
             }
         } catch (SQLException exception) {
+            logger.error("Ошибка БД: сбой при поиске макросов по запросу {}", title, exception);
             throw new MacrosException("Не удалось выполнить поиск макросов", exception);
         }
 
@@ -85,9 +96,12 @@ public class SqlMacrosRepository implements MacrosRepository {
                     return new Macros(id, macros.getTitle(), macros.getMacros());
                 }
             }
-
             throw new SQLException("Не удалось сгенерировать ID");
         } catch (SQLException exception) {
+            logger.error(
+                    "Ошибка БД: не удалось сохранить макрос '{}' в базу данных",
+                    macros.getTitle(),
+                    exception);
             throw new MacrosException("Не удалось сохранить макрос в базу данных", exception);
         }
     }
@@ -100,6 +114,7 @@ public class SqlMacrosRepository implements MacrosRepository {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException exception) {
+            logger.error("Ошибка БД: не удалось удалить макрос с ID: {}", id, exception);
             throw new MacrosException("Не удалось удалить макрос из базы данных", exception);
         }
     }

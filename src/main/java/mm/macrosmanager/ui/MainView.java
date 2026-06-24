@@ -9,25 +9,13 @@ import mm.macrosmanager.ui.macros.MacrosList;
 import mm.macrosmanager.ui.window.AddMacrosWindow;
 
 public class MainView extends SplitPane {
-    private final MacrosSidebar sidebar;
-    private final MacrosContent content;
-
     public MainView(MacrosModel model) {
         AddMacrosWindow addMacrosWindow = new AddMacrosWindow();
         MacrosList macrosList = new MacrosList(model);
         ClipboardService clipboardService = new ClipboardService();
 
-        this.content = new MacrosContent(clipboardService);
-        this.sidebar = new MacrosSidebar(macrosList, addMacrosWindow, model);
-
-        macrosList.getMacrosList()
-                .getSelectionModel()
-                .selectedItemProperty()
-                .addListener((obs, old, val) -> {
-                    if (val != null) {
-                        content.showMacros(val.getTitle(), val.getMacros());
-                    }
-                });
+        MacrosContent content = new MacrosContent(macrosList, clipboardService);
+        MacrosSidebar sidebar = new MacrosSidebar(macrosList, addMacrosWindow, model);
 
         setDividerPositions(0.3);
 

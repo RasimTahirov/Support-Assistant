@@ -28,7 +28,6 @@ public class ConfirmationWindow {
             try {
                 model.delete(macros);
             } catch (MacrosException exception) {
-                System.out.println("SQL ошибка " + exception.getMessage());
                 WarningWindow.showWarning("Не удалось удалить макрос");
             }
         }

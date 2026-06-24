@@ -34,7 +34,6 @@ public class AddMacrosWindow {
                 model.add(title.getText(), macros.getText());
                 stage.close();
             } catch (MacrosException exception) {
-                System.out.println("SQL ошибка " + exception.getMessage());
                 WarningWindow.showWarning(exception.getMessage());
             }
         });
