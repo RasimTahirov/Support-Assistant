@@ -7,10 +7,10 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>mm</groupId>
-    <artifactId>MacrosManager</artifactId>
-    <version>0.1.0</version>
-    <name>MacrosManager</name>
+    <groupId>supportassistant</groupId>
+    <artifactId>SupportAssistant</artifactId>
+    <version>1.0.0</version>
+    <name>Support Assistant</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,6 +28,10 @@
         <logback.version>1.5.34</logback.version>
 
         <slf4j.version>2.0.18</slf4j.version>
+
+        <maven.plugin.version>3.13.0</maven.plugin.version>
+
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
     </properties>
 
     <dependencies>
@@ -86,21 +90,20 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.13.0</version>
+                <version>${maven.plugin.version}</version>
 
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${java.version}</release>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
+                <version>${javafx.maven.plugin.version}</version>
 
                 <configuration>
-                    <mainClass>mm.macrosmanager.Launcher</mainClass>
+                    <mainClass>supportassistant.Launcher</mainClass>
                 </configuration>
             </plugin>
         </plugins>
