@@ -1,7 +1,6 @@
 package supportassistant.ui.pane;
 
 import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import supportassistant.exception.TemplateException;
@@ -28,14 +27,12 @@ public class TemplateSidebar extends VBox {
 
         addTemplateButton.setOnAction(e -> addTemplateWindow.open(model));
 
-        HBox buttonContainer = new HBox(addTemplateButton);
-        VBox templatesListContainer = new VBox(templatesList);
+        getChildren().addAll(search, addTemplateButton, templatesList);
 
-        templatesListContainer.setMaxWidth(Double.MAX_VALUE);
-
+        addTemplateButton.setMaxWidth(Double.MAX_VALUE);
         VBox.setVgrow(templatesList, Priority.ALWAYS);
-        VBox.setVgrow(templatesListContainer, Priority.ALWAYS);
 
-        getChildren().addAll(search, buttonContainer, templatesListContainer);
+        getStyleClass().add("sidebar");
+        search.getStyleClass().add("search-field");
     }
 }

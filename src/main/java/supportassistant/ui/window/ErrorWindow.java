@@ -2,6 +2,7 @@ package supportassistant.ui.window;
 
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import supportassistant.utils.LoadStyles;
 
 import static javafx.scene.control.Alert.AlertType.ERROR;
 
@@ -11,6 +12,8 @@ public class ErrorWindow {
 
         alert.setHeaderText("Не удалось запустить приложение.");
         alert.setContentText("Произошла ошибка при инициализации базы данных. Приложение будет закрыто.");
+
+        LoadStyles.apply(alert.getDialogPane());
 
         alert.showAndWait();
         Platform.exit();
@@ -24,6 +27,8 @@ public class ErrorWindow {
         alert.setContentText("""
                 Не удалось корректно завершить работу приложения. Закройте его вручную через Диспетчер задач.
                 """);
+
+        LoadStyles.apply(alert.getDialogPane());
 
         alert.showAndWait();
     }

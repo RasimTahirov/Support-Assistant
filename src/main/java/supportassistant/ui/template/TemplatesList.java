@@ -13,8 +13,11 @@ public class TemplatesList extends VBox {
         templatesList.setItems(model.geTemplatesList());
         templatesList.setCellFactory(template -> new TemplatesCellView(model));
 
-        VBox.setVgrow(templatesList, Priority.ALWAYS);
         getChildren().add(templatesList);
+
+        VBox.setVgrow(templatesList, Priority.ALWAYS);
+
+        templatesList.getStyleClass().add("template-list");
     }
 
     public ListView<Template> getTemplatesList() {

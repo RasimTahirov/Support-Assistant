@@ -5,6 +5,8 @@ import javafx.scene.control.ButtonType;
 import supportassistant.entity.Template;
 import supportassistant.exception.TemplateException;
 import supportassistant.model.TemplateModel;
+import supportassistant.utils.LoadStyles;
+
 import java.util.Optional;
 
 import static javafx.scene.control.Alert.AlertType.CONFIRMATION;
@@ -21,6 +23,8 @@ public class ConfirmationWindow {
         alert.setContentText(message + " " + template.getTitle() + "?");
         alert.setHeaderText(null);
         alert.setGraphic(null);
+
+        LoadStyles.apply(alert.getDialogPane());
 
         Optional<ButtonType> result = alert.showAndWait();
 

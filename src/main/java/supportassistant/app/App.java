@@ -15,6 +15,7 @@ import supportassistant.service.ScreenRegisterService;
 import supportassistant.service.TemplateService;
 import supportassistant.ui.MainView;
 import supportassistant.ui.window.ErrorWindow;
+import supportassistant.utils.LoadStyles;
 import supportassistant.utils.WindowFocusUtils;
 
 public class App extends Application {
@@ -35,6 +36,8 @@ public class App extends Application {
             MainView mainView = new MainView(model);
 
             Scene scene = new Scene(mainView, 1000, 700);
+
+            LoadStyles.apply(scene);
 
             stage.setTitle("Support Assistant");
             stage.setScene(scene);

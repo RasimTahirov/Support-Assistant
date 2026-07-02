@@ -1,0 +1,255 @@
+.root {
+    -fx-font-family: "Roboto Mono Medium", sans-serif;
+    -fx-font-weight: lighter;
+    -fx-background-color: #EDEDF2;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-accent: #7B6EF6;
+}
+
+.main-split {
+    -fx-background-color: #EDEDF2;
+    -fx-padding: 0;
+}
+
+.main-split > .split-pane-divider {
+    -fx-background-color: #E2E2EC;
+    -fx-padding: 0 0.5;
+}
+
+.sidebar {
+    -fx-background-color: #F7F7FB;
+    -fx-padding: 18;
+    -fx-spacing: 14;
+}
+
+.search-field {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-border-color: #E2E2EC;
+    -fx-border-radius: 10;
+    -fx-padding: 10 14;
+    -fx-font-size: 13px;
+    -fx-font-family: "Roboto Mono ExtraLight";
+    -fx-text-fill: #2B2B38;
+    -fx-prompt-text-fill: #A6A6B5;
+}
+
+.search-field:focused {
+    -fx-border-color: #7B6EF6;
+    -fx-effect: dropshadow(gaussian, rgba(123,110,246,0.22), 8, 0, 0, 0);
+}
+
+.primary-button {
+    -fx-background-color: linear-gradient(to bottom right, #8B7CF8, #7B6EF6);
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 11 18;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(123,110,246,0.35), 10, 0, 0, 3);
+    -fx-font-family: "Roboto Mono Light";
+}
+
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to bottom right, #9D8DF7, #8B7CF8);
+}
+
+.primary-button:pressed {
+    -fx-background-color: #6A5AE0;
+}
+
+.template-list {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 4 0 0 0;
+}
+
+.template-list .viewport {
+    -fx-background-color: transparent;
+}
+
+.template-list .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 4 2;
+}
+
+.template-list .list-cell:filled:selected,
+.template-list:focused .list-cell:filled:selected {
+    -fx-background-color: transparent;
+}
+
+.template-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 12;
+    -fx-border-color: #E8E8F0;
+    -fx-border-radius: 12;
+    -fx-padding: 12 14;
+    -fx-alignment: center-left;
+    -fx-spacing: 10;
+}
+
+.list-cell:filled:hover .template-cell {
+    -fx-border-color: #C9C0FA;
+}
+
+.list-cell:filled:selected .template-cell {
+    -fx-background-color: #F1EFFE;
+    -fx-border-color: #7B6EF6;
+}
+
+.cell-title {
+    -fx-text-fill: #2B2B38;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.delete-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #9A9AAB;
+    -fx-font-size: 12px;
+    -fx-background-radius: 8;
+    -fx-padding: 6 10;
+}
+
+.delete-button:hover {
+    -fx-background-color: #FDE8E8;
+    -fx-text-fill: #E5484D;
+}
+
+.content-pane {
+    -fx-background-color: #EDEDF2;
+    -fx-padding: 22;
+    -fx-spacing: 16;
+}
+
+.content-title {
+    -fx-fill: #2B2B38;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.template-area {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 14;
+    -fx-border-color: #E2E2EC;
+    -fx-border-radius: 14;
+    -fx-font-size: 14px;
+    -fx-font-family: "Roboto Mono ExtraLight";
+    -fx-text-fill: #2B2B38;
+    -fx-effect: dropshadow(gaussian, rgba(40,40,60,0.06), 14, 0, 0, 4);
+}
+
+.template-area .content {
+    -fx-background-color: transparent;
+    -fx-padding: 14;
+}
+
+.template-area:focused {
+    -fx-border-color: #C9C0FA;
+}
+
+.template-area .scroll-pane,
+.template-area .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #CFCFDC;
+    -fx-background-radius: 8;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #B6B6C8;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button,
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.dialog-root {
+    -fx-background-color: #EDEDF2;
+    -fx-padding: 22;
+    -fx-spacing: 14;
+}
+
+.dialog-title {
+    -fx-fill: #2B2B38;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.dialog-field {
+    -fx-font-family: "Roboto Mono ExtraLight";
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10;
+    -fx-border-color: #E2E2EC;
+    -fx-border-radius: 10;
+    -fx-padding: 10 14;
+    -fx-font-size: 13px;
+    -fx-text-fill: #2B2B38;
+    -fx-prompt-text-fill: #A6A6B5;
+}
+
+.dialog-field:focused {
+    -fx-border-color: #7B6EF6;
+}
+
+.dialog-textarea {
+    -fx-font-family: "Roboto Mono ExtraLight";
+    -fx-background-color: #F4F4F4;
+    -fx-background-radius: 12;
+    -fx-border-color: #E2E2EC;
+    -fx-border-radius: 12;
+    -fx-font-size: 13px;
+    -fx-text-fill: #2B2B38;
+    -fx-prompt-text-fill: #A6A6B5;
+    -fx-padding: 2;
+}
+
+.dialog-textarea .content {
+    -fx-background-color: transparent;
+    -fx-padding: 12;
+}
+.dialog-textarea:focused {
+    -fx-border-color: #7B6EF6;
+}
+
+.app-dialog {
+    -fx-background-color: #F7F7FB;
+}
+
+.app-dialog .label {
+    -fx-text-fill: #2B2B38;
+    -fx-font-size: 13px;
+}
+
+.app-dialog .header-panel {
+    -fx-background-color: #FFFFFF;
+}
+
+.app-dialog .button {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #E2E2EC;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #2B2B38;
+    -fx-padding: 8 16;
+}
+
+.app-dialog .button:hover {
+    -fx-border-color: #C9C0FA;
+}
+
+.app-dialog .button:default {
+    -fx-background-color: linear-gradient(to bottom right, #8B7CF8, #7B6EF6);
+    -fx-text-fill: white;
+    -fx-border-color: transparent;
+}

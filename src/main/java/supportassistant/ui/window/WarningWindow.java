@@ -1,6 +1,7 @@
 package supportassistant.ui.window;
 
 import javafx.scene.control.Alert;
+import supportassistant.utils.LoadStyles;
 
 import static javafx.scene.control.Alert.AlertType.WARNING;
 
@@ -13,6 +14,8 @@ public class WarningWindow {
         warning.setTitle(warningMessage);
         warning.setHeaderText(null);
         warning.setContentText(message);
+
+        LoadStyles.apply(warning.getDialogPane());
 
         warning.showAndWait();
     }

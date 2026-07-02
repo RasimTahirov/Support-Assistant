@@ -20,5 +20,7 @@ public class MainView extends SplitPane {
         setDividerPositions(0.3);
 
         getItems().addAll(sidebar, content);
+
+        getStyleClass().add("main-split");
     }
 }

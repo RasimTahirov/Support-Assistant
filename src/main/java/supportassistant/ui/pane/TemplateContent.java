@@ -1,5 +1,6 @@
 package supportassistant.ui.pane;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -17,9 +18,6 @@ public class TemplateContent extends VBox {
         Button copyButton = new Button("Скопировать");
 
         copyButton.setOnAction(e -> clipboard.copy(template.getText()));
-
-        HBox titleContainer = new HBox(title);
-        HBox templatesContainer = new HBox(template);
         HBox buttonContainer = new HBox(copyButton);
 
         templatesList.getTemplatesList()
@@ -36,11 +34,16 @@ public class TemplateContent extends VBox {
                 .getSelectionModel()
                 .selectFirst();
 
-        setVgrow(templatesContainer, Priority.ALWAYS);
-
         template.setEditable(false);
         template.setWrapText(true);
 
-        getChildren().addAll(titleContainer, templatesContainer, buttonContainer);
+        getChildren().addAll(title, template, buttonContainer);
+
+        VBox.setVgrow(template, Priority.ALWAYS);
+        buttonContainer.setAlignment(Pos.CENTER_RIGHT);
+
+        getStyleClass().add("content-pane");
+        title.getStyleClass().add("content-title");
+        template.getStyleClass().add("template-area");
     }
 }
