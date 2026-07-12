@@ -1,15 +1,15 @@
 package supportassistant.service;
 
+import supportassistant.utils.PathUtils;
+
 import java.io.File;
 
 public class DatabaseService {
-    public static String getDatabasePath(String path) {
-        File folder = new File(PlatformService.getUserHome(), path);
+    public static String getDatabasePath() {
+        return PathUtils.getFilePath("templates.db");
+    }
 
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
-
-        return new File(folder, "templates.db").getAbsolutePath();
+    public static void saveLogPathProperty() {
+        System.setProperty("LOG_PATH", new File(PathUtils.getUserHome(), PathUtils.getAppPath()).getAbsolutePath());
     }
 }

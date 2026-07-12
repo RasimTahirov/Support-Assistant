@@ -6,4 +6,8 @@ public class Button extends javafx.scene.control.Button {
 
         getStyleClass().add("primary-button");
     }
+
+    public Button() {
+        getStyleClass().add("settings-button");
+    }
 }

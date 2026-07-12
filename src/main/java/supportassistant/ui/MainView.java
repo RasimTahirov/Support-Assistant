@@ -1,26 +1,22 @@
 package supportassistant.ui;
 
-import javafx.scene.control.SplitPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import supportassistant.model.TemplateModel;
-import supportassistant.service.ClipboardService;
-import supportassistant.ui.pane.TemplateContent;
-import supportassistant.ui.pane.TemplateSidebar;
+import supportassistant.service.SettingsService;
+import supportassistant.ui.pane.MainPane;
+import supportassistant.ui.pane.Navigation;
 import supportassistant.ui.template.TemplatesList;
-import supportassistant.ui.window.AddTemplateWindow;
 
-public class MainView extends SplitPane {
-    public MainView(TemplateModel model) {
-        AddTemplateWindow addTemplateWindow = new AddTemplateWindow();
+public class MainView extends HBox {
+    public MainView(TemplateModel model, SettingsService service) {
         TemplatesList templatesList = new TemplatesList(model);
-        ClipboardService clipboardService = new ClipboardService();
 
-        TemplateContent content = new TemplateContent(templatesList, clipboardService);
-        TemplateSidebar sidebar = new TemplateSidebar(templatesList, addTemplateWindow, model);
+        MainPane mainPane = new MainPane(model, service, templatesList);
+        Navigation navigation = new Navigation(mainPane::setSettingVisible);
 
-        setDividerPositions(0.3);
+        getChildren().addAll(navigation, mainPane);
 
-        getItems().addAll(sidebar, content);
-
-        getStyleClass().add("main-split");
+        HBox.setHgrow(mainPane, Priority.ALWAYS);
     }
 }

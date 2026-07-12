@@ -8,22 +8,25 @@ import supportassistant.model.TemplateModel;
 import supportassistant.ui.button.Button;
 import supportassistant.ui.template.TemplatesList;
 import supportassistant.ui.window.AddTemplateWindow;
-import supportassistant.ui.window.WarningWindow;
+import supportassistant.ui.window.alert.WarningWindow;
+import supportassistant.utils.I18n;
 
 public class TemplateSidebar extends VBox {
-    public TemplateSidebar(TemplatesList templatesList, AddTemplateWindow addTemplateWindow, TemplateModel model) {
+    public TemplateSidebar(TemplatesList templatesList, TemplateModel model) {
+        AddTemplateWindow addTemplateWindow = new AddTemplateWindow();
+
         TextField search = new TextField();
 
-        search.setPromptText("Поиск...");
+        search.setPromptText(I18n.get("search"));
         search.textProperty().addListener((obs, oldVal, newVal) -> {
             try {
                 model.search(newVal.toLowerCase());
             } catch (TemplateException exception) {
-                WarningWindow.showWarning("Не удалось выполнить поиск");
+                WarningWindow.showWarning(I18n.get("message.warning.search"));
             }
         });
 
-        Button addTemplateButton = new Button("Добавить новый шаблон");
+        Button addTemplateButton = new Button(I18n.get("button.add_template"));
 
         addTemplateButton.setOnAction(e -> addTemplateWindow.open(model));
 

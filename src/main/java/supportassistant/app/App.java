@@ -3,39 +3,58 @@ package supportassistant.app;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import supportassistant.exception.TemplateException;
 import supportassistant.model.TemplateModel;
 import supportassistant.repository.SqlTemplateRepository;
 import supportassistant.repository.TemplateRepository;
-import supportassistant.service.PlatformService;
+import supportassistant.service.DatabaseService;
+import supportassistant.utils.PathUtils;
 import supportassistant.service.ScreenRegisterService;
+import supportassistant.service.SettingsService;
 import supportassistant.service.TemplateService;
 import supportassistant.ui.MainView;
-import supportassistant.ui.window.ErrorWindow;
+import supportassistant.ui.window.alert.ErrorWindow;
+import supportassistant.utils.I18n;
 import supportassistant.utils.LoadStyles;
 import supportassistant.utils.WindowFocusUtils;
+
+import java.util.Locale;
 
 public class App extends Application {
     private final Logger logger = LoggerFactory.getLogger(App.class);
 
-    private final ScreenRegisterService screenRegister = new ScreenRegisterService();
-    private final TemplateRepository repository = new SqlTemplateRepository();
-    private final TemplateService service = new TemplateService(repository);
-    private final TemplateModel model = new TemplateModel(service);
+    private TemplateRepository repository;
+    private TemplateService templateService;
+    private SettingsService settingsService;
+    private TemplateModel model;
+    private ScreenRegisterService screenRegister;
+
+    @Override
+    public void init() {
+        this.repository = new SqlTemplateRepository();
+        this.settingsService = new SettingsService();
+        this.templateService = new TemplateService(repository);
+        this.model = new TemplateModel(templateService);
+        this.screenRegister = new ScreenRegisterService();
+
+        templateService.initStorage();
+        model.load();
+        settingsService.load();
+
+        String language = settingsService.getSettings().getLanguage();
+        I18n.setLocale(Locale.of(language));
+    }
 
     @Override
     public void start(Stage stage) {
         try {
-            service.initStorage();
-            model.load();
             screenRegister.register(stage);
 
-            MainView mainView = new MainView(model);
+            MainView mainView = new MainView(model, settingsService);
 
-            Scene scene = new Scene(mainView, 1000, 700);
+            Scene scene = new Scene(mainView, 1200, 900);
 
             LoadStyles.apply(scene);
 
@@ -46,9 +65,9 @@ public class App extends Application {
 
             WindowFocusUtils.requestForeground();
 
-            logger.info("Приложение запущено на ОС {}", PlatformService.getOsName());
+            logger.info("Application started on OS {}", PathUtils.getOsName());
         } catch (TemplateException exception) {
-            logger.error("Возникла ошибка. Приложение не запущено {}", exception.getMessage(), exception);
+            logger.error("An error occurred. Application failed to start {}", exception.getMessage(), exception);
             ErrorWindow.showInitDatabaseError();
         }
     }
@@ -57,11 +76,11 @@ public class App extends Application {
     public void stop() {
         screenRegister.unregister();
 
-        logger.info("Приложение успешно завершило работу");
+        logger.info("Application successfully shut down");
     }
 
     public static void main(String[] args) {
-        PlatformService.saveLogPathProperty();
+        DatabaseService.saveLogPathProperty();
         launch(args);
     }
 }

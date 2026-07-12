@@ -9,13 +9,15 @@ import javafx.scene.text.Text;
 import supportassistant.service.ClipboardService;
 import supportassistant.ui.button.Button;
 import supportassistant.ui.template.TemplatesList;
+import supportassistant.utils.I18n;
 
 public class TemplateContent extends VBox {
-    private final TextArea template = new TextArea();
-    private final Text title = new Text();
+    public TemplateContent(TemplatesList templatesList) {
+        ClipboardService clipboard = new ClipboardService();
 
-    public TemplateContent(TemplatesList templatesList, ClipboardService clipboard) {
-        Button copyButton = new Button("Скопировать");
+        Button copyButton = new Button(I18n.get("button.copy"));
+        TextArea template = new TextArea();
+        Text title = new Text();
 
         copyButton.setOnAction(e -> clipboard.copy(template.getText()));
         HBox buttonContainer = new HBox(copyButton);

@@ -15,12 +15,12 @@ public class SqlTemplateRepository implements TemplateRepository {
 
     @Override
     public void init() {
-        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getURL());
+        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getUrl());
              Statement statement = connection.createStatement()) {
             statement.execute(SqlQueryUtils.getCreateQuery());
         } catch (SQLException exception) {
-            logger.error("База данных не инициализирована {}", exception.getMessage(), exception);
-            throw new TemplateException("Не удалось инициализировать базу данных", exception);
+            logger.error("Database not initialized {}", exception.getMessage(), exception);
+            throw new TemplateException("Failed to initialize database", exception);
         }
     }
 
@@ -28,7 +28,7 @@ public class SqlTemplateRepository implements TemplateRepository {
     public List<Template> getAll()  {
         List<Template> templatesList = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getURL());
+        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getUrl());
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(SqlQueryUtils.getAllQuery())) {
 
@@ -41,11 +41,11 @@ public class SqlTemplateRepository implements TemplateRepository {
             }
         } catch (SQLException exception) {
             logger.error(
-                    "Ошибка БД: не удалось загрузить полный список шаблонов, {}",
+                    "Database error: failed to load full template list, {}",
                     exception.getMessage(),
                     exception
             );
-            throw new TemplateException("Не удалось загрузить шаблонов из базы данных", exception);
+            throw new TemplateException("Failed to load templates from database", exception);
         }
 
         return templatesList;
@@ -55,7 +55,7 @@ public class SqlTemplateRepository implements TemplateRepository {
     public List<Template> search(String title) {
         List<Template> templatesList = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getURL());
+        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getUrl());
              PreparedStatement statement = connection.prepareStatement(SqlQueryUtils.getSearchQuery())) {
 
             statement.setString(1, "%" + title.toLowerCase() + "%");
@@ -70,8 +70,8 @@ public class SqlTemplateRepository implements TemplateRepository {
                 }
             }
         } catch (SQLException exception) {
-            logger.error("Ошибка БД: сбой при поиске шаблонов по запросу {}", title, exception);
-            throw new TemplateException("Не удалось выполнить поиск шаблонов", exception);
+            logger.error("Database error: failed to search templates by query {}", title, exception);
+            throw new TemplateException("Failed to search templates", exception);
         }
 
         return templatesList;
@@ -79,7 +79,7 @@ public class SqlTemplateRepository implements TemplateRepository {
 
     @Override
     public Template add(Template template) {
-        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getURL());
+        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getUrl());
              PreparedStatement statement = connection.prepareStatement(
                      SqlQueryUtils.getAddQuery(),
                      Statement.RETURN_GENERATED_KEYS)) {
@@ -96,26 +96,26 @@ public class SqlTemplateRepository implements TemplateRepository {
                     return new Template(id, template.getTitle(), template.getTemplate());
                 }
             }
-            throw new SQLException("Не удалось сгенерировать ID");
+            throw new SQLException("Failed to generate ID");
         } catch (SQLException exception) {
             logger.error(
-                    "Ошибка БД: не удалось сохранить шаблон '{}' в базу данных",
+                    "Database error: failed to save template '{}' to database",
                     template.getTitle(),
                     exception);
-            throw new TemplateException("Не удалось сохранить шаблон в базу данных", exception);
+            throw new TemplateException("Failed to save template to database", exception);
         }
     }
 
     @Override
     public void delete(int id) {
-        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getURL());
+        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getUrl());
              PreparedStatement statement = connection.prepareStatement(SqlQueryUtils.getDeleteQuery())) {
 
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            logger.error("Ошибка БД: не удалось удалить шаблон с ID: {}", id, exception);
-            throw new TemplateException("Не удалось удалить шаблон из базы данных", exception);
+            logger.error("Database error: failed to delete template with ID: {}", id, exception);
+            throw new TemplateException("Failed to delete template from database", exception);
         }
     }
 }

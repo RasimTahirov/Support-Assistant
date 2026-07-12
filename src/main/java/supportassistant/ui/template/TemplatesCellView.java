@@ -9,11 +9,12 @@ import javafx.scene.layout.Region;
 import supportassistant.entity.Template;
 import supportassistant.model.TemplateModel;
 import supportassistant.ui.button.Button;
-import supportassistant.ui.window.ConfirmationWindow;
+import supportassistant.ui.window.alert.ConfirmationWindow;
+import supportassistant.utils.I18n;
 
 public class TemplatesCellView extends ListCell<Template> {
     private final Label templateTitle = new Label();
-    private final Button deleteButton = new Button("Удалить");
+    private final Button deleteButton = new Button(I18n.get("button.delete_template"));
     private final Region spacer = new Region();
     private final HBox container = new HBox(templateTitle, spacer, deleteButton);
 
@@ -23,7 +24,7 @@ public class TemplatesCellView extends ListCell<Template> {
         deleteButton.setOnAction(e -> {
             if (template != null) {
                 ConfirmationWindow.showDeleteTemplateConfirmation(
-                        "Удаление", "Удалить макрос", template, model);
+                        I18n.get("title.delete"), I18n.get("message.delete_template"), template, model);
             }
         });
 

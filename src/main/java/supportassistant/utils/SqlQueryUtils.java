@@ -1,9 +1,11 @@
 package supportassistant.utils;
 
-import supportassistant.service.PlatformService;
+import supportassistant.service.DatabaseService;
 
 public class SqlQueryUtils {
-    private static final String URL = "jdbc:sqlite:";
+    private static final String JDBC_PREFIX = "jdbc:sqlite:";
+    private static final String PATCH = DatabaseService.getDatabasePath();
+    private static final String URL = JDBC_PREFIX + PATCH;
 
     private static final String SEARCH_QUERY = "SELECT * FROM %s WHERE %s LIKE ?";
     private static final String ALL_QUERY = "SELECT * FROM %s";
@@ -25,8 +27,8 @@ public class SqlQueryUtils {
     private static final String KEY_TITLE_LOWER = "title_lower";
     private static final String KEY_TEMPLATE = "template";
 
-    public static String getURL() {
-        return URL + PlatformService.getDatabasePath();
+    public static String getUrl() {
+        return URL;
     }
 
     public static String getSearchQuery() {

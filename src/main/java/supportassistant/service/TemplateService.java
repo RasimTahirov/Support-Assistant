@@ -19,13 +19,13 @@ public class TemplateService {
     public void initStorage() {
         repository.init();
 
-        logger.info("БД успешно инициализировано");
+        logger.info("Database successfully initialized");
     }
 
     public List<Template> loadAllTemplates() {
         List<Template> list = repository.getAll();
 
-        logger.debug("Загружено {} шаблонов из БД", list.size());
+        logger.debug("Loaded {} templates from database", list.size());
 
         return list;
     }
@@ -37,19 +37,19 @@ public class TemplateService {
 
         List<Template> list = repository.search(title);
 
-        logger.info("Поиск по запросу '{}' вернул {} результатов", title, list.size());
+        logger.debug("Search by query '{}' returned {} results", title, list.size());
 
         return list;
     }
 
     public Template createTemplate(Template templates) {
         if (templates.getTemplate().isBlank() || templates.getTitle().isBlank()) {
-            throw new TemplateException("Название и шаблон не могут быть пустыми");
+            throw new TemplateException("Title and template cannot be empty");
         }
 
         Template newTemplate = repository.add(templates);
 
-        logger.info("Успешно создан новый шаблон: title - {}, id - {}", newTemplate.getTitle(), newTemplate.getId());
+        logger.info("Successfully created new template: title - {}, id - {}", newTemplate.getTitle(), newTemplate.getId());
 
         return newTemplate;
     }
@@ -57,6 +57,6 @@ public class TemplateService {
     public void deleteTemplate(Template template) {
         repository.delete(template.getId());
 
-        logger.info("Шаблон title - {}, id - {} успешно удален", template.getTitle(), template.getId());
+        logger.info("Template title - {}, id - {} successfully deleted", template.getTitle(), template.getId());
     }
 }

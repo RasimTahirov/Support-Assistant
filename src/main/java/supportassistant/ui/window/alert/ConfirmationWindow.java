@@ -1,10 +1,11 @@
-package supportassistant.ui.window;
+package supportassistant.ui.window.alert;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import supportassistant.entity.Template;
 import supportassistant.exception.TemplateException;
 import supportassistant.model.TemplateModel;
+import supportassistant.utils.I18n;
 import supportassistant.utils.LoadStyles;
 
 import java.util.Optional;
@@ -32,7 +33,7 @@ public class ConfirmationWindow {
             try {
                 model.delete(template);
             } catch (TemplateException exception) {
-                WarningWindow.showWarning("Не удалось удалить шаблон");
+                WarningWindow.showWarning(I18n.get("message.warning.delete"));
             }
         }
     }

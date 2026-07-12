@@ -13,6 +13,8 @@ import javafx.stage.Stage;
 import supportassistant.exception.TemplateException;
 import supportassistant.model.TemplateModel;
 import supportassistant.ui.button.Button;
+import supportassistant.ui.window.alert.WarningWindow;
+import supportassistant.utils.I18n;
 import supportassistant.utils.LoadStyles;
 
 public class AddTemplateWindow {
@@ -21,15 +23,15 @@ public class AddTemplateWindow {
 
         VBox root = new VBox();
 
-        Text heading = new Text("Новый макрос");
+        Text heading = new Text(I18n.get("message.add_template"));
 
         TextField title = new TextField();
-        title.setPromptText("Название");
+        title.setPromptText(I18n.get("message.template_name"));
 
         TextArea template = new TextArea();
-        template.setPromptText("Шаблон");
+        template.setPromptText(I18n.get("message.template"));
 
-        Button saveButton = new Button("Сохранить");
+        Button saveButton = new Button(I18n.get("button.save"));
 
         HBox buttonContainer = new HBox(saveButton);
 

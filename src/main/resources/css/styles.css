@@ -102,7 +102,6 @@
 .cell-title {
     -fx-text-fill: #2B2B38;
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
 }
 
 .delete-button {
@@ -252,4 +251,34 @@
     -fx-background-color: linear-gradient(to bottom right, #8B7CF8, #7B6EF6);
     -fx-text-fill: white;
     -fx-border-color: transparent;
+}
+
+.settings-window {
+    -fx-background-color: #F7F7FB;
+    -fx-padding: 18px;
+}
+
+.settings-button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.language-settings-container {
+    -fx-alignment: center-left;
+    -fx-spacing: 10;
+}
+
+.settings-label-container {
+    -fx-padding: 0 0 10px 0;
+    -fx-font-size: 14px;
+}
+
+.settings-label {
+    -fx-font-size: 18px;
+}
+
+.como-box-settings {
+    -fx-padding: 5px;
+    -fx-background-radius: 10;
+    -fx-background-color: #FFFFFF;
 }
