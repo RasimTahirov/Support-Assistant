@@ -12,6 +12,7 @@ import org.kordamp.ikonli.remixicon.RemixiconAL;
 import supportassistant.Interface.SettingsInterface;
 import supportassistant.service.SettingsService;
 import supportassistant.ui.button.Button;
+import supportassistant.ui.window.alert.ConfirmationWindow;
 import supportassistant.utils.I18n;
 
 import java.util.ArrayList;
@@ -34,14 +35,15 @@ public class SettingsWindow extends VBox {
         Region region = new Region();
         Button closeButton = new Button();
 
-        saveButton.setOnAction(e -> {
-            for (int i = 0; i < settingsList.size(); i++) {
-                SettingsInterface list = settingsList.get(i);
-                list.apply();
-            }
 
-            settingsService.save();
-        });
+//        saveButton.setOnAction(e -> {
+//            for (int i = 0; i < settingsList.size(); i++) {
+//                SettingsInterface list = settingsList.get(i);
+//                list.apply();
+//            }
+//
+//            settingsService.save();
+//        });
 
         closeButton.setGraphic(closeIcon);
         closeButton.setOnAction(e -> onClose.run());

@@ -2,31 +2,19 @@ package supportassistant.utils;
 
 import java.io.File;
 
-public class PathUtils {
-    private static final String OS_NAME =  System.getProperty("os.name").toLowerCase();
-    private static final String USER_HOME = System.getProperty("user.home");
+import static supportassistant.utils.SystemInfoUtils.*;
 
+public class PathUtils {
     private static final String WINDOWS_PATH = "AppData/Roaming/Support Assistant";
     private static final String MAC_OS_PATH = "Library/Application Support/Support Assistant";
     private static final String DEFAULT_PATH = ".supportassistant";
 
-    private static final String WIN = "win";
-    private static final String MAC = "mac";
-
-    public static String getOsName() {
-        return OS_NAME;
-    }
-
-    public static String getUserHome() {
-        return USER_HOME;
-    }
-
     public static String getAppPath() {
-        if (OS_NAME.contains(WIN)) {
+        if (getOsName().contains(getWin())) {
             return WINDOWS_PATH;
         }
 
-        if (OS_NAME.contains(MAC)) {
+        if (getOsName().contains(getMac())) {
             return MAC_OS_PATH;
         }
 

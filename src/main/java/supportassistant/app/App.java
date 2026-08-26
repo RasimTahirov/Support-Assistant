@@ -10,15 +10,12 @@ import supportassistant.model.TemplateModel;
 import supportassistant.repository.SqlTemplateRepository;
 import supportassistant.repository.TemplateRepository;
 import supportassistant.service.DatabaseService;
-import supportassistant.utils.PathUtils;
+import supportassistant.utils.*;
 import supportassistant.service.ScreenRegisterService;
 import supportassistant.service.SettingsService;
 import supportassistant.service.TemplateService;
 import supportassistant.ui.MainView;
 import supportassistant.ui.window.alert.ErrorWindow;
-import supportassistant.utils.I18n;
-import supportassistant.utils.LoadStyles;
-import supportassistant.utils.WindowFocusUtils;
 
 import java.util.Locale;
 
@@ -65,7 +62,7 @@ public class App extends Application {
 
             WindowFocusUtils.requestForeground();
 
-            logger.info("Application started on OS {}", PathUtils.getOsName());
+            logger.info("Application started on OS {}", SystemInfoUtils.getOsName());
         } catch (TemplateException exception) {
             logger.error("An error occurred. Application failed to start {}", exception.getMessage(), exception);
             ErrorWindow.showInitDatabaseError();

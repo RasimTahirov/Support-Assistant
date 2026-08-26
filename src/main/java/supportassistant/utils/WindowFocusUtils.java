@@ -10,10 +10,8 @@ public class WindowFocusUtils {
 
         Desktop desktop = Desktop.getDesktop();
 
-        if (Desktop.isDesktopSupported()) {
-            if (desktop.isSupported(Desktop.Action.APP_REQUEST_FOREGROUND)) {
-                desktop.requestForeground(true);
-            }
+        if (desktop.isSupported(Desktop.Action.APP_REQUEST_FOREGROUND)) {
+            desktop.requestForeground(true);
         }
     }
 }
