@@ -13,9 +13,10 @@ import javafx.stage.Stage;
 import supportassistant.exception.TemplateException;
 import supportassistant.model.TemplateModel;
 import supportassistant.ui.button.Button;
-import supportassistant.ui.window.alert.WarningWindow;
-import supportassistant.utils.I18n;
+import supportassistant.ui.window.alert.WarningAlert;
 import supportassistant.utils.LoadStyles;
+
+import static supportassistant.utils.I18n.*;
 
 public class AddTemplateWindow {
     public void open(TemplateModel model) {
@@ -23,21 +24,23 @@ public class AddTemplateWindow {
 
         VBox root = new VBox();
 
-        Text heading = new Text(I18n.get("message.add_template"));
+        Text heading = new Text(get("message.template.title"));
 
         TextField title = new TextField();
-        title.setPromptText(I18n.get("message.template_name"));
+        title.setPromptText(get("message.template.name"));
 
         TextArea template = new TextArea();
-        template.setPromptText(I18n.get("message.template"));
+        template.setPromptText(get("message.template.description"));
 
-        Button saveButton = new Button(I18n.get("button.save"));
+        Button saveButton = new Button(get("text.save"));
 
         HBox buttonContainer = new HBox(saveButton);
 
         saveButton.setOnAction(e -> {
             if (title.getText().isBlank() || template.getText().isBlank()) {
-                WarningWindow.showWarning("Добавьте название и шаблон");
+                WarningAlert warning = new WarningAlert();
+                warning.setContentText("Добавьте название и шаблон"); // Изменить
+                warning.showAndWait();
                 return;
             }
 
@@ -45,7 +48,9 @@ public class AddTemplateWindow {
                 model.add(title.getText(), template.getText());
                 stage.close();
             } catch (TemplateException exception) {
-                WarningWindow.showWarning(exception.getMessage());
+                WarningAlert warning = new WarningAlert();
+                warning.setContentText(exception.getMessage());
+                warning.showAndWait();
             }
         });
 

@@ -8,10 +8,11 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import supportassistant.Interface.SettingsInterface;
 import supportassistant.service.SettingsService;
-import supportassistant.utils.I18n;
 import supportassistant.utils.LanguageCode;
 
 import java.util.Locale;
+
+import static supportassistant.utils.I18n.*;
 
 public class LanguageSettings extends HBox implements SettingsInterface {
     private final ComboBox<String> comboBox;
@@ -23,15 +24,15 @@ public class LanguageSettings extends HBox implements SettingsInterface {
 
         LanguageCode languageCode = new LanguageCode();
 
-        Label languageLabel = new Label(I18n.get("label.language"));
         Region region = new Region();
+        Label languageLabel = new Label(get("text.language"));
 
         comboBox.getItems().addAll(languageCode.getRussian(), languageCode.getEnglish());
         comboBox.setValue(service.getSettings().getLanguage().toUpperCase());
 
         comboBox.setOnAction(e -> {
             String code = comboBox.getValue();
-            I18n.setLocale(Locale.of(code));
+            setLocale(Locale.of(code));
         });
 
         HBox languageContainer = new HBox(languageLabel, region, comboBox);

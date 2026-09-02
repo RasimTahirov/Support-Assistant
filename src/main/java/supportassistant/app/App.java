@@ -1,7 +1,9 @@
 package supportassistant.app;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,14 +12,19 @@ import supportassistant.model.TemplateModel;
 import supportassistant.repository.SqlTemplateRepository;
 import supportassistant.repository.TemplateRepository;
 import supportassistant.service.DatabaseService;
-import supportassistant.utils.*;
+import supportassistant.ui.window.alert.ErrorAlert;
 import supportassistant.service.ScreenRegisterService;
 import supportassistant.service.SettingsService;
 import supportassistant.service.TemplateService;
 import supportassistant.ui.MainView;
-import supportassistant.ui.window.alert.ErrorWindow;
+import supportassistant.utils.LoadStyles;
+import supportassistant.utils.SystemInfoUtils;
+import supportassistant.utils.WindowFocusUtils;
 
 import java.util.Locale;
+import java.util.Objects;
+
+import static supportassistant.utils.I18n.*;
 
 public class App extends Application {
     private final Logger logger = LoggerFactory.getLogger(App.class);
@@ -27,6 +34,13 @@ public class App extends Application {
     private SettingsService settingsService;
     private TemplateModel model;
     private ScreenRegisterService screenRegister;
+
+    private static final String ICON_PATH = "/icons/windows_bar_logo.png";
+
+    private final Image icon = new Image(
+            Objects.requireNonNull(
+                    getClass().getResourceAsStream(ICON_PATH),
+                    "Icon not found: " + ICON_PATH));
 
     @Override
     public void init() {
@@ -41,7 +55,9 @@ public class App extends Application {
         settingsService.load();
 
         String language = settingsService.getSettings().getLanguage();
-        I18n.setLocale(Locale.of(language));
+        setLocale(Locale.of(language));
+
+        System.setProperty("prism.lcdtext", "false");
     }
 
     @Override
@@ -55,6 +71,7 @@ public class App extends Application {
 
             LoadStyles.apply(scene);
 
+            stage.getIcons().add(icon);
             stage.setTitle("Support Assistant");
             stage.setScene(scene);
             stage.show();
@@ -65,7 +82,14 @@ public class App extends Application {
             logger.info("Application started on OS {}", SystemInfoUtils.getOsName());
         } catch (TemplateException exception) {
             logger.error("An error occurred. Application failed to start {}", exception.getMessage(), exception);
-            ErrorWindow.showInitDatabaseError();
+            ErrorAlert error = new ErrorAlert();
+
+            error.setHeaderText(get("message.error.header.database"));
+            error.setContentText(get("message.error.content.database"));
+            error.showAndWait();
+
+            Platform.exit();
+            System.exit(0);
         }
     }
 

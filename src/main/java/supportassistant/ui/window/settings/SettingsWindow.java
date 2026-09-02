@@ -12,11 +12,12 @@ import org.kordamp.ikonli.remixicon.RemixiconAL;
 import supportassistant.Interface.SettingsInterface;
 import supportassistant.service.SettingsService;
 import supportassistant.ui.button.Button;
-import supportassistant.ui.window.alert.ConfirmationWindow;
-import supportassistant.utils.I18n;
+import supportassistant.ui.window.alert.InformationAlert;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static supportassistant.utils.I18n.*;
 
 public class SettingsWindow extends VBox {
     private final List<SettingsInterface> settingsList = new ArrayList<>();
@@ -30,20 +31,23 @@ public class SettingsWindow extends VBox {
 
         settingsList.add(language);
 
-        Label settingsLabel = new Label(I18n.get("label.settings_title"));
-        Button saveButton = new Button(I18n.get("button.save"));
+        Label settingsLabel = new Label(get("text.settings_title"));
+        Button saveButton = new Button(get("text.save"));
         Region region = new Region();
         Button closeButton = new Button();
 
+        saveButton.setOnAction(e -> {
+            for (int i = 0; i < settingsList.size(); i++) {
+                SettingsInterface list = settingsList.get(i);
+                list.apply();
+            }
 
-//        saveButton.setOnAction(e -> {
-//            for (int i = 0; i < settingsList.size(); i++) {
-//                SettingsInterface list = settingsList.get(i);
-//                list.apply();
-//            }
-//
-//            settingsService.save();
-//        });
+            InformationAlert alert = new InformationAlert();
+            alert.setHeaderText(get("message.info.header.reload"));
+            alert.showAndWait();
+
+            settingsService.save();
+        });
 
         closeButton.setGraphic(closeIcon);
         closeButton.setOnAction(e -> onClose.run());

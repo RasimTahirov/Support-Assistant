@@ -9,13 +9,14 @@ import javafx.scene.text.Text;
 import supportassistant.service.ClipboardService;
 import supportassistant.ui.button.Button;
 import supportassistant.ui.template.TemplatesList;
-import supportassistant.utils.I18n;
+
+import static supportassistant.utils.I18n.*;
 
 public class TemplateContent extends VBox {
     public TemplateContent(TemplatesList templatesList) {
         ClipboardService clipboard = new ClipboardService();
 
-        Button copyButton = new Button(I18n.get("button.copy"));
+        Button copyButton = new Button(get("text.copy"));
         TextArea template = new TextArea();
         Text title = new Text();
 
