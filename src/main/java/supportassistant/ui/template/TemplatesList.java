@@ -10,7 +10,7 @@ public class TemplatesList extends VBox {
     ListView<Template> templatesList = new ListView<>();
 
     public TemplatesList(TemplateModel model) {
-        templatesList.setItems(model.geTemplatesList());
+        templatesList.setItems(model.getTemplatesList());
         templatesList.setCellFactory(template -> new TemplatesCellView(model));
 
         getChildren().add(templatesList);

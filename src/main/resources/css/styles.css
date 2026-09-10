@@ -104,17 +104,14 @@
     -fx-font-size: 14px;
 }
 
-.delete-button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #9A9AAB;
-    -fx-font-size: 12px;
-    -fx-background-radius: 8;
-    -fx-padding: 6 10;
-}
 
 .delete-button:hover {
     -fx-background-color: #FDE8E8;
     -fx-text-fill: #E5484D;
+}
+
+.update-button:hover {
+    -fx-background-color: #C9C0FA;
 }
 
 .content-pane {

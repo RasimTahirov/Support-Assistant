@@ -7,14 +7,13 @@ import supportassistant.exception.TemplateException;
 import supportassistant.model.TemplateModel;
 import supportassistant.ui.button.Button;
 import supportassistant.ui.template.TemplatesList;
-import supportassistant.ui.window.AddTemplateWindow;
+import supportassistant.ui.window.TemplateWindow;
 import supportassistant.ui.window.alert.WarningAlert;
 
 import static supportassistant.utils.I18n.*;
 
 public class TemplateSidebar extends VBox {
     public TemplateSidebar(TemplatesList templatesList, TemplateModel model) {
-        AddTemplateWindow addTemplateWindow = new AddTemplateWindow();
 
         TextField search = new TextField();
 
@@ -31,7 +30,9 @@ public class TemplateSidebar extends VBox {
 
         Button addTemplateButton = new Button(get("text.add_template"));
 
-        addTemplateButton.setOnAction(e -> addTemplateWindow.open(model));
+        addTemplateButton.setOnAction(e -> {
+            new TemplateWindow(model);
+        });
 
         getChildren().addAll(search, addTemplateButton, templatesList);
 

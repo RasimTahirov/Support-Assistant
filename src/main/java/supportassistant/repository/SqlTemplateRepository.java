@@ -107,6 +107,33 @@ public class SqlTemplateRepository implements TemplateRepository {
     }
 
     @Override
+    public Template update(int id, Template template) {
+        try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getUrl());
+             PreparedStatement statement = connection.prepareStatement(
+                     SqlQueryUtils.getUpdateQuery())) {
+
+            statement.setString(1, template.getTitle());
+            statement.setString(2, template.getTitle_lower());
+            statement.setString(3, template.getTemplate());
+            statement.setInt(4, id);
+
+            int affectedRow = statement.executeUpdate();
+
+            if (affectedRow == 0) {
+                throw new SQLException("Template with given id not found");
+            }
+
+            return template;
+        } catch (SQLException exception) {
+            logger.error(
+                    "Database error: failed to update template '{}' to database",
+                    template,
+                    exception);
+            throw new TemplateException("Failed to update template to database", exception);
+        }
+    }
+
+    @Override
     public void delete(int id) {
         try (Connection connection = DriverManager.getConnection(SqlQueryUtils.getUrl());
              PreparedStatement statement = connection.prepareStatement(SqlQueryUtils.getDeleteQuery())) {

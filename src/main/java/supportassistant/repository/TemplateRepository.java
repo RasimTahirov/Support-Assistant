@@ -9,5 +9,6 @@ public interface TemplateRepository {
     List<Template> getAll();
     List<Template> search(String title);
     Template add(Template template);
+    Template update(int id, Template template);
     void delete(int id);
 }

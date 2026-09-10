@@ -10,6 +10,7 @@ public class SqlQueryUtils {
     private static final String SEARCH_QUERY = "SELECT * FROM %s WHERE %s LIKE ?";
     private static final String ALL_QUERY = "SELECT * FROM %s";
     private static final String ADD_QUERY = "INSERT INTO %s (%s, %s, %s) VALUES (?, ?, ?)";
+    private static final String UPDATE_QUERY = "UPDATE %s SET %s = ?, %s = ?, %s = ? WHERE %s = ?"; //Возможно исправить
     private static final String DELETE_QUERY = "DELETE FROM %s WHERE %s = ?";
     private static final String CREATE_QUERY = """
             CREATE TABLE IF NOT EXISTS %s (
@@ -41,6 +42,10 @@ public class SqlQueryUtils {
 
     public static String getAddQuery() {
         return String.format(ADD_QUERY, DATABASE_NAME, KEY_TITLE, KEY_TITLE_LOWER, KEY_TEMPLATE);
+    }
+
+    public static String getUpdateQuery() {
+        return String.format(UPDATE_QUERY, DATABASE_NAME, KEY_TITLE, KEY_TITLE_LOWER, KEY_TEMPLATE, KEY_ID);
     }
 
     public static String getDeleteQuery() {

@@ -1,6 +1,5 @@
 package supportassistant.model;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import supportassistant.entity.Template;
@@ -17,7 +16,7 @@ public class TemplateModel {
         this.service = service;
     }
 
-    public ObservableList<Template> geTemplatesList() {
+    public ObservableList<Template> getTemplatesList() {
         return templatesList;
     }
 
@@ -36,6 +35,18 @@ public class TemplateModel {
         Template saved = service.createTemplate(template);
 
         templatesList.add(saved);
+    }
+
+    public void update(int id, String title, String content) {
+        Template template = new Template(id, title, content);
+        Template updated = service.updateTemplate(id, template);
+
+        for (int i = 0; i < templatesList.size(); i++) {
+            if (templatesList.get(i).getId() == id) {
+                templatesList.set(i, updated);
+                return;
+            }
+        }
     }
 
     public void delete(Template template) {

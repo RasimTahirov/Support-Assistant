@@ -54,6 +54,20 @@ public class TemplateService {
         return newTemplate;
     }
 
+    public Template updateTemplate(int id, Template template) {
+        if (template.getTemplate().isBlank() || template.getTitle().isBlank()) {
+            throw new TemplateException("Title and template cannot be empty");
+        }
+
+        Template updateTemplate = repository.update(id, template);
+
+        logger.info(
+                "Successfully updated template: title - {}, template - {}, id - {}",
+                updateTemplate.getTitle(), template.getTemplate(), updateTemplate.getId());
+
+        return updateTemplate;
+    }
+
     public void deleteTemplate(Template template) {
         repository.delete(template.getId());
 
